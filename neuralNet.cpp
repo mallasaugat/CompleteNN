@@ -5,6 +5,9 @@
 #include "datasetMnist.h"
 #include "model.h"
 
+#include<opencv2/dnn.hpp>
+#include<opencv2/dnn/all_layers.hpp>
+
 using namespace std;
 
 int main(){
@@ -34,10 +37,11 @@ int main(){
     prepareDataset(trainingData, labelData, imagesValue, labelsValue, outputLayer);
     cout<<"Training Data size:"<<trainingData.size()<<" "<<labelData.size()<<endl;
 
-    // Training
-    cv::Ptr<cv::ml::ANN_MLP> mlp;
-    mlp = modelMLP(inputLayer, hiddenLayer, outputLayer);
-    mlpTrain(mlp, trainingData, labelData);
+    // Training 
+    // // ANN_MLP
+    // cv::Ptr<cv::ml::ANN_MLP> mlp;
+    // mlp = modelMLP(inputLayer, hiddenLayer, outputLayer);
+    // mlpTrain(mlp, trainingData, labelData);
 
 
     return 0;

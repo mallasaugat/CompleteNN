@@ -6,9 +6,9 @@ using namespace std;
 int main(){
 
     // cv::Ptr<cv::ml::ANN_MLP> mlp = cv::ml::ANN_MLP::load("/Users/saugatmalla/Documents/NEU-Courses/Sem 2/PRCV/Projects/P6/models/trained_digit_model.xml");
-    cv::Ptr<cv::ml::ANN_MLP> mlp = cv::ml::ANN_MLP::load("/Users/saugatmalla/Documents/NEU-Courses/Sem 2/PRCV/Projects/P6/models/mlp_mnist_model.xml");
+    cv::Ptr<cv::ml::ANN_MLP> mlp = cv::ml::ANN_MLP::load("/Users/saugatmalla/Documents/NEU-Courses/Sem 2/PRCV/Projects/P6/models/trained_digit_model.xml");
 
-    cv::Mat testImage = cv::imread("/Users/saugatmalla/Documents/NEU-Courses/Sem 2/PRCV/Projects/P6/testImages/5.png", cv::IMREAD_GRAYSCALE);
+    cv::Mat testImage = cv::imread("/Users/saugatmalla/Documents/NEU-Courses/Sem 2/PRCV/Projects/P6/testImages/7.png", cv::IMREAD_GRAYSCALE);
 
     cv::resize(testImage, testImage, cv::Size(28,28));
 

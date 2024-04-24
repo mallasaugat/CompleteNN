@@ -7,8 +7,18 @@ INCLUDES = -I/opt/homebrew/include/opencv4
 neuralNet: neuralNet.cpp datasetMnsit.cpp model.cpp
 	$(CXX) $(CXXFLAGS) $(INCLUDES) -o $@ $^ $(LIBS)
 
+neuralNetEval: neuralNetEval.cpp
+	$(CXX) $(CXXFLAGS) $(INCLUDES) -o $@ $^ $(LIBS)
+
 neuralTest: neuralTest.cpp
 	$(CXX) $(CXXFLAGS) $(INCLUDES) -o $@ $^ $(LIBS)
+
+neuralTestCNN: neuralTestCNN.cpp
+	$(CXX) $(CXXFLAGS) $(INCLUDES) -o $@ $^ $(LIBS)
+
+neuralNetEval: neuralNetEval.cpp datasetMnsit.cpp
+	$(CXX) $(CXXFLAGS) $(INCLUDES) -o $@ $^ $(LIBS)
+
 
 .PHONY: clean
 

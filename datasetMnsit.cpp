@@ -36,7 +36,8 @@ vector<vector<unsigned char>> readbyteImages(const string& fName){
     for(int i=0;i<numImages;i++){
 
         vector<unsigned char> image(numRows * numCols);
-        file.read((char*)(image.data()), numRows * numCols);
+        // file.read((char*)(image.data()), numRows * numCols);
+        file.read(reinterpret_cast<char*>(image.data()), numRows * numCols);
 
         images.push_back(image);
     }
