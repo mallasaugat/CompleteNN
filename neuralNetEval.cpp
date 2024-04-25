@@ -1,3 +1,11 @@
+/*
+    Saugat Malla
+*/
+
+/*
+    This file contains code to load the trained model and check the accuracy of the model
+*/
+
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -5,56 +13,17 @@
 #include <opencv2/ml.hpp>
 #include <opencv2/dnn.hpp>
 
-#include "datasetMnist.h"
+#include "datasetMnist.h" // Header file for reading MNIST dataset
 
-// Function to read IDX3-UBYTE files
-std::vector<std::vector<unsigned char>> readIDX3UByteFile(const std::string& filename) {
-    std::ifstream file(filename, std::ios::binary);
 
-    if (!file) {
-        std::cerr << "Failed to open the IDX3-UBYTE file." << std::endl;
-        return {};
-    }
-
-    // Read the IDX3-UBYTE file header
-    char magicNumber[4];
-    char numImagesBytes[4];
-    char numRowsBytes[4];
-    char numColsBytes[4];
-
-    file.read(magicNumber, 4);
-    file.read(numImagesBytes, 4);
-    file.read(numRowsBytes, 4);
-    file.read(numColsBytes, 4);
-
-    // Convert the header information from big-endian to native endianness
-    int numImages = (static_cast<unsigned char>(numImagesBytes[0]) << 24) | (static_cast<unsigned char>(numImagesBytes[1]) << 16) | (static_cast<unsigned char>(numImagesBytes[2]) << 8) | static_cast<unsigned char>(numImagesBytes[3]);
-    int numRows = (static_cast<unsigned char>(numRowsBytes[0]) << 24) | (static_cast<unsigned char>(numRowsBytes[1]) << 16) | (static_cast<unsigned char>(numRowsBytes[2]) << 8) | static_cast<unsigned char>(numRowsBytes[3]);
-    int numCols = (static_cast<unsigned char>(numColsBytes[0]) << 24) | (static_cast<unsigned char>(numColsBytes[1]) << 16) | (static_cast<unsigned char>(numColsBytes[2]) << 8) | static_cast<unsigned char>(numColsBytes[3]);
-
-    // Initialize a vector to store the images
-    std::vector<std::vector<unsigned char>> images;
-
-    for (int i = 0; i < numImages; i++) {
-        // Read each image as a vector of bytes
-        std::vector<unsigned char> image(numRows * numCols);
-        file.read(reinterpret_cast<char*>(image.data()), numRows * numCols);
-
-        images.push_back(image);
-    }
-
-    file.close();
-
-    return images;
-}
-
-// Function to read IDX1-UBYTE label files
+// Function to read IDX1-UBYTE label files (MNIST label files)
 std::vector<unsigned char> readIDX1UByteLabelFile(const std::string& filename) {
+    // Open the IDX1-UBYTE label file in binary mode
     std::ifstream file(filename, std::ios::binary);
 
     if (!file) {
         std::cerr << "Failed to open the IDX1-UBYTE label file." << std::endl;
-        return {};
+        return {}; // Return an empty vector if file opening fails
     }
 
     // Read the IDX1-UBYTE label file header
@@ -75,7 +44,7 @@ std::vector<unsigned char> readIDX1UByteLabelFile(const std::string& filename) {
 
     file.close();
 
-    return labels;
+    return labels; // Return the vector of labels
 }
 
 int main() {
@@ -90,31 +59,33 @@ int main() {
     std::string test_filename = "/Users/saugatmalla/Documents/NEU-Courses/Sem 2/PRCV/Projects/P6/Dataset/Mnist/t10k-images.idx3-ubyte";
     std::string test_label_filename = "/Users/saugatmalla/Documents/NEU-Courses/Sem 2/PRCV/Projects/P6/Dataset/Mnist/t10k-labels.idx1-ubyte";
 
-    std::vector<std::vector<unsigned char>> test_imagesFile = readIDX3UByteFile(test_filename);
-    std::vector<unsigned char> test_labelsFile = readIDX1UByteLabelFile(test_label_filename);
+    std::vector<std::vector<unsigned char>> test_imagesFile = readbyteImages(test_filename); // Read test images
+    std::vector<unsigned char> test_labelsFile = readIDX1UByteLabelFile(test_label_filename); // Read test labels
 
     // Prepare test data
     std::vector<cv::Mat> test_imagesData;
     std::vector<int> test_labelsData;
 
     for (size_t i = 0; i < test_imagesFile.size(); ++i) {
+        // Reshape each image and convert to OpenCV Mat
         cv::Mat image = cv::Mat(test_imagesFile[i]).reshape(1, 28);
         test_imagesData.push_back(image);
-        test_labelsData.push_back(static_cast<int>(test_labelsFile[i]));
+        test_labelsData.push_back(static_cast<int>(test_labelsFile[i])); // Store test labels as integers
     }
 
     // Evaluate the model
     int correct_predictions = 0;
     int total_predictions = test_imagesData.size();
-    for (size_t i = 0; i < test_imagesData.size(); ++i) {
 
+    for (size_t i = 0; i < test_imagesData.size(); ++i) {
         // Preprocess the test image
         cv::Mat testImage = test_imagesData[i];
-        cv::resize(testImage, testImage, cv::Size(28, 28));
+        cv::resize(testImage, testImage, cv::Size(28, 28)); // Resize to match model input size
         cv::Mat flattenedImage = testImage.reshape(1, 1);
         cv::Mat input;
         flattenedImage.convertTo(input, CV_32F);
 
+        // Predict the label using the trained model
         cv::Mat predicted;
         model->predict(input, predicted);
 
