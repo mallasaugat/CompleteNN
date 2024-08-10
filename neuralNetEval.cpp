@@ -49,15 +49,15 @@ std::vector<unsigned char> readIDX1UByteLabelFile(const std::string& filename) {
 
 int main() {
     // Load the trained model
-    cv::Ptr<cv::ml::ANN_MLP> model = cv::ml::StatModel::load<cv::ml::ANN_MLP>("/Users/saugatmalla/Documents/NEU-Courses/Sem 2/PRCV/Projects/P6/models/trained_digit_model.xml");
+    cv::Ptr<cv::ml::ANN_MLP> model = cv::ml::StatModel::load<cv::ml::ANN_MLP>("./models/trained_digit_model.xml");
     if (model.empty()) {
         std::cerr << "Failed to load the trained model." << std::endl;
         return -1;
     }
 
     // Load test data
-    std::string test_filename = "/Users/saugatmalla/Documents/NEU-Courses/Sem 2/PRCV/Projects/P6/Dataset/Mnist/t10k-images.idx3-ubyte";
-    std::string test_label_filename = "/Users/saugatmalla/Documents/NEU-Courses/Sem 2/PRCV/Projects/P6/Dataset/Mnist/t10k-labels.idx1-ubyte";
+    std::string test_filename = "./Dataset/Mnist/t10k-images.idx3-ubyte";
+    std::string test_label_filename = "./Dataset/Mnist/t10k-labels.idx1-ubyte";
 
     std::vector<std::vector<unsigned char>> test_imagesFile = readbyteImages(test_filename); // Read test images
     std::vector<unsigned char> test_labelsFile = readIDX1UByteLabelFile(test_label_filename); // Read test labels
