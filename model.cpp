@@ -43,6 +43,6 @@ void mlpTrain(cv::Ptr<cv::ml::ANN_MLP> mlp, cv::Mat trainingData, cv::Mat labelD
     mlp->train(trainingData, cv::ml::ROW_SAMPLE, labelData);
 
     // Save the trained MLP model to a file
-    mlp->save("/Users/saugatmalla/Documents/NEU-Courses/Sem 2/PRCV/Projects/P6/models/mlp_mnist_model.xml");
+    mlp->save("./models/mlp_mnist_model.xml");
 
 }
