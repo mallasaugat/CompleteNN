@@ -15,10 +15,10 @@ using namespace std;
 int main(){
 
     // Load the trained neural network model from file
-    cv::Ptr<cv::ml::ANN_MLP> mlp = cv::ml::ANN_MLP::load("/Users/saugatmalla/Documents/NEU-Courses/Sem 2/PRCV/Projects/P6/models/trained_digit_model.xml");
+    cv::Ptr<cv::ml::ANN_MLP> mlp = cv::ml::ANN_MLP::load("./models/trained_digit_model.xml");
 
     // Read the test image
-    cv::Mat testImage = cv::imread("/Users/saugatmalla/Documents/NEU-Courses/Sem 2/PRCV/Projects/P6/testImages/7.png", cv::IMREAD_GRAYSCALE);
+    cv::Mat testImage = cv::imread("./testImages/7.png", cv::IMREAD_GRAYSCALE);
 
     // Resize the test image to match the input size of the model
     cv::resize(testImage, testImage, cv::Size(28,28));
