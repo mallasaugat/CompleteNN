@@ -28,7 +28,7 @@ class Network(nn.Module):
 model = Network()
 
 # Load the pre-trained weights
-model.load_state_dict(torch.load("/Users/saugatmalla/Documents/NEU-Courses/Sem 2/PRCV/Projects/P6_test/models/model.pth"))
+model.load_state_dict(torch.load("./models/model.pth"))
 
 # Set the model to evaluation mode
 model.eval()
