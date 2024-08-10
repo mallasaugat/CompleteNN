@@ -15,10 +15,10 @@ using namespace std;
 int main(){
 
     // Load the ONNX model
-    cv::dnn::Net model = cv::dnn::readNetFromONNX("/Users/saugatmalla/Documents/NEU-Courses/Sem 2/PRCV/Projects/P6_test/model.onnx");
+    cv::dnn::Net model = cv::dnn::readNetFromONNX("model.onnx");
 
     // Read and preprocess the test image
-    cv::Mat testImage = cv::imread("/Users/saugatmalla/Documents/NEU-Courses/Sem 2/PRCV/Projects/P6_test/testImages/1.jpeg", cv::IMREAD_GRAYSCALE);
+    cv::Mat testImage = cv::imread("testImages/1.jpeg", cv::IMREAD_GRAYSCALE);
     cv::resize(testImage, testImage, cv::Size(28,28));
 
     // Convert the test image to a format suitable for input to the model
