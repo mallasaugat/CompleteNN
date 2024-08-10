@@ -21,8 +21,8 @@ using namespace std;
 int main(){
 
     // File paths for MNIST dataset
-    string fileName = "/Users/saugatmalla/Documents/NEU-Courses/Sem 2/PRCV/Projects/P6/Dataset/Mnist/train-images.idx3-ubyte";
-    string lfName = "/Users/saugatmalla/Documents/NEU-Courses/Sem 2/PRCV/Projects/P6/Dataset/Mnist/train-labels.idx1-ubyte";
+    string fileName = "./Dataset/Mnist/train-images.idx3-ubyte";
+    string lfName = "./Dataset/Mnist/train-labels.idx1-ubyte";
 
     // Loading dataset
     vector<vector<unsigned char>> imageFile = readbyteImages(fileName); // Read byte images from file
